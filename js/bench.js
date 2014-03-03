@@ -30,9 +30,12 @@
 
   function print_result(s, n, ms) {
     var rate = 1e-3 * n / ms;
-    if (results[s] === undefined)
+    if (results[s] === undefined) {
       results[s] = 0;
-    results[s] += rate;
+    }
+    else {
+      results[s] += rate;
+    }
     out.append('<tr><td class="name">' + s + '</td><td class="result"><span class="result">' + rate.toFixed(1) + '</span></td></tr>');
   }
 
@@ -432,15 +435,15 @@
 
   function makeOutputTable(heading) {
     out = $('<table class="output" style="width: ' + Math.floor($(window).width() / NUM_RUNS - 32) + 'px"></table>')
-      .appendTo($('body'))
       .append($('<tr><th colspan="2">' + heading + '</th></tr>'))
-      .append('<tr><td>Funktion</td><td class="result">1K&nbsp;calls/s<sup></sup></td></tr>');
+      .append('<tr><td>Funktion</td><td class="result">1K&nbsp;calls/s<sup></sup></td></tr>')
+      .appendTo($('body'));
   }
 
 
   function ready() {
-    if (++nRun < NUM_RUNS) {
-      return run(benchmark);
+    if (++nRun <= NUM_RUNS) {
+      run(benchmark, 1000);
     }
     else {
       makeOutputTable('Mittelwerte der Messungen');
@@ -453,7 +456,7 @@
 
   function benchmark() {
     run(function () {
-      makeOutputTable('Messlauf #' + (nRun + 1));
+      makeOutputTable(nRun === 0 ? 'Warm-up' : 'Messlauf #' + nRun);
     })
       .then(go_for)
       .then(go_while)
