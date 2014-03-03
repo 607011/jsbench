@@ -6,10 +6,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #343131;
+  background-color: #3a3131;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 11px;
-  color: #eeeeee;
+  color: #e8f0ff;
 }
 
 h1, h2 {
@@ -43,7 +43,7 @@ p {
 }
 
 .result {
-  background-color: #eeeeee;
+  background-color: #e8f0ff;
   color: #343131;
   padding-right: 0.3em;
   padding-left: 0.3em;
