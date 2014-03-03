@@ -1,4 +1,4 @@
-﻿JSBench
+JSBench
 =======
 
 Nutzungshinweise

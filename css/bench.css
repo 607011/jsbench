@@ -1,13 +1,43 @@
-﻿html, body {
+@font-face {
+  font-family: "Dot Matrix";
+  src: url('../fonts/BMreceipt-A11.otf');
+}
+
+html, body {
   margin: 0;
   padding: 0;
-  background-color: #10140e;
-  color: #53dc1a;
+  background-color: #343131;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  color: #eeddde;
+}
+
+h1, h2 {
+  font-family: "Dot Matrix", Helvetica, Arial, sans-serif;
+  letter-spacing: 0.1em;
+  margin: 1ex 8px;
+  text-transform: uppercase;
+  font-weight: normal;
+  color: #eeddde;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+h2 {
+  font-size: 11px;
 }
 
 #output {
-  margin: 1ex 1em;
-  font-family: monospace;
-  font-size: 12px;
+}
+
+p {
+  margin: 1ex 8px;
+}
+
+.output {
+  display: inline-block;
+  vertical-align: top;
 }
 
