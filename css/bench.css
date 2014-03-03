@@ -37,8 +37,16 @@ td.result {
   text-align: right;
 }
 
+tr:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
 p, table {
   margin: 0.5ex 0 0 8px;
+}
+
+table {
+  border-collapse: collapse;
 }
 
 .output {
