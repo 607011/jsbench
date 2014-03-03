@@ -42,7 +42,7 @@
       results[s] = 0;
     var rate = 1e-3 * n / ms;
     results[s] += rate;
-    out.append('<p>' + s + ': ' + (ms) + 'ms (' + rate.toFixed(1) + ' ms<sup>&minus;1</sup>)</p>');
+    out.append('<p>' + s + ': ' + rate.toFixed(1) + ' ms<sup>&minus;1</sup></p>');
   }
 
 
@@ -111,9 +111,9 @@
 
   function go_random() {
     return run(function () {
-      var N = REPS / 10, i, v = new Array(N);
+      var N = REPS / 10, i, v = [];
       for (i = 0; i < N; ++i) {
-        v[i] = Math.random();
+        v.push(Math.random());
       }
       print_result('generating floats with <code>Math.random()</code>', N, Clock.ms());
       v = undefined;
@@ -123,9 +123,9 @@
 
   function go_mt() {
     return run(function () {
-      var N = REPS / 10, i, rng = new MersenneTwister(1337), v = new Array(N);
+      var N = REPS / 10, i, rng = new MersenneTwister(1337), v = [];
       for (i = 0; i < N; ++i) {
-        v[i] = rng.genrand_int32() / RNG.MAX_VALUE;
+        v.push(rng.genrand_int32() / RNG.MAX_VALUE);
       }
       print_result('generating floats with <code>MersenneTwister()</code>', N, Clock.ms());
       v = undefined;
@@ -135,9 +135,9 @@
 
   function go_lcg_rng() {
     return run(function () {
-      var N = REPS / 10, i, rng = new RNG(1337), v = new Array(N);
+      var N = REPS / 10, i, rng = new RNG(1337), v = [];
       for (i = 0; i < N; ++i) {
-        v[i] = rng.next() / RNG.MAX_VALUE;
+        v.push(rng.next() / RNG.MAX_VALUE);
       }
       print_result('generating floats with LCG', N, Clock.ms());
       v = undefined;
@@ -147,9 +147,9 @@
 
   function go_random_int() {
     return run(function () {
-      var N = REPS / 10, i, v = new Array(N);
+      var N = REPS / 10, i, v = [];
       for (i = 0; i < N; ++i) {
-        v[i] = Math.floor(Math.random() * RNG.MAX_VALUE);
+        v.push(Math.floor(Math.random() * RNG.MAX_VALUE));
       }
       print_result('generating integers with <code>Math.random()</code>', N, Clock.ms());
       v = undefined;
@@ -159,9 +159,9 @@
 
   function go_mt_int() {
     return run(function () {
-      var N = REPS / 10, i, rng = new MersenneTwister(1337), v = new Array(N);
+      var N = REPS / 10, i, rng = new MersenneTwister(1337), v = [];
       for (i = 0; i < N; ++i) {
-        v[i] = rng.genrand_int32();
+        v.push(rng.genrand_int32());
       }
       print_result('generating integers with <code>MersenneTwister()</code>', N, Clock.ms());
       v = undefined;
@@ -171,9 +171,9 @@
 
   function go_lcg_rng_int() {
     return run(function () {
-      var N = REPS / 10, i, rng = new RNG(1337), v = new Array(N);
+      var N = REPS / 10, i, rng = new RNG(1337), v = [];
       for (i = 0; i < N; ++i) {
-        v[i] = rng.next();
+        v.push(rng.next());
       }
       print_result('generating integers with LCG', N, Clock.ms());
       v = undefined;
@@ -205,9 +205,21 @@
   }
 
 
-  function go_new_float32array() {
+  function go_new_object() {
     return run(function () {
       var N = REPS, i, v;
+      for (i = 0; i < N; ++i) {
+        v = { x: 0, y: 0 };
+      }
+      print_result('<code>{x:0, y:0}</code>', N, Clock.ms());
+      v = undefined;
+    });
+  }
+
+
+  function go_new_float32array() {
+    return run(function () {
+      var N = REPS / 10, i, v;
       for (i = 0; i < N; ++i) {
         v = new Float32Array(2);
       }
@@ -219,7 +231,7 @@
 
   function go_new_float64array() {
     return run(function () {
-      var N = REPS, i, v;
+      var N = REPS / 10, i, v;
       for (i = 0; i < N; ++i) {
         v = new Float64Array(2);
       }
@@ -332,6 +344,7 @@
       .then(go_int32array)
       .then(go_new_array1)
       .then(go_new_array2)
+      .then(go_new_object)
       .then(go_new_float32array)
       .then(go_new_float64array)
       .then(ready);
