@@ -12,6 +12,10 @@ html, body {
   color: #e8f0ff;
 }
 
+body {
+  margin-bottom: 10px;
+}
+
 h1, th {
   font-family: "Dot Matrix", Helvetica, Arial, sans-serif;
   letter-spacing: 0.1em;
