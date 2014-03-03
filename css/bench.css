@@ -12,26 +12,32 @@ html, body {
   color: #e8f0ff;
 }
 
-h1, h2 {
+h1, th {
   font-family: "Dot Matrix", Helvetica, Arial, sans-serif;
   letter-spacing: 0.1em;
   margin: 1ex 8px;
   text-transform: uppercase;
   font-weight: normal;
+  text-align: left;
 }
 
 h1 {
   font-size: 22px;
 }
 
-h2 {
+th {
   font-size: 11px;
 }
 
-#output {
+td.name {
+  width: 100%;
 }
 
-p {
+td.result {
+  text-align: right;
+}
+
+p, table {
   margin: 0.5ex 0 0 8px;
 }
 
@@ -42,7 +48,7 @@ p {
   margin-right: 1em;
 }
 
-.result {
+span.result {
   background-color: #e8f0ff;
   color: #343131;
   padding-right: 0.3em;

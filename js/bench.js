@@ -33,7 +33,7 @@
       results[s] = 0;
     var rate = 1e-3 * n / ms;
     results[s] += rate;
-    out.append('<p>' + s + ': <span class="result">' + rate.toFixed(1) + '</span> ms<sup>&minus;1</sup></p>');
+    out.append('<tr><td class="name">' + s + '</td><td class="result"><span class="result">' + rate.toFixed(1) + '</span></td></tr>');
   }
 
 
@@ -399,10 +399,13 @@
       return run(benchmark);
     }
     else {
-      out = $('body');
-      out.append('<h2>Mittelwerte der Messungen</h2>');
+      out = $('<table class="output" style="width: ' + Math.floor($(window).width() / NUM_RUNS - 16) + 'px"></table>');
+      $('body').append(out);
+      out
+        .append('<tr><th colspan="2">Mittelwerte der Messungen</th></tr>')
+        .append('<tr><td>Funktion</td><td class="result">ms<sup>&minus;1</sup></td></tr>');
       $.each(results, function (s, v) {
-        out.append('<p>' + s + ': ø <span class="result">' + (v / NUM_RUNS).toFixed(1) + '</span>&nbsp;ms<sup>&minus;1</sup></p>');
+        out.append('<tr><td class="name">' + s + '</td><td class="result"><span class="result">' + (v / NUM_RUNS).toFixed(1) + '</span></td></tr>');
       });
     }
   }
@@ -410,8 +413,11 @@
 
   function benchmark() {
     run(function () {
-      out = $('<span></span>').addClass('output');
-      $('body').append(out.append($('<h2>Messlauf #' + (nRun + 1) + '</h2>')));
+      out = $('<table class="output" style="width: ' + Math.floor($(window).width() / NUM_RUNS - 16) + 'px"></table>');
+      out
+        .append($('<tr><th colspan="2">Messlauf #' + (nRun + 1) + '</th></tr>'))
+        .append('<tr><td>Funktion</td><td class="result">ms<sup>&minus;1</sup></td></tr>')
+      $('body').append(out);
     })
       .then(go_for)
       .then(go_while)
