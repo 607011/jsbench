@@ -100,6 +100,42 @@
   }
 
 
+  function go_a_typeof() {
+    return run(function () {
+      var N = REPS, i, a = 'foo';
+      for (i = 0; i < N; ++i) {
+        if (typeof a === 'undefined')
+          continue;
+      }
+      print_result('<code>if (typeof a === "undefined") ...</code>', N, Stopwatch.elapsed());
+    });
+  }
+
+
+  function go_a_undefined() {
+    return run(function () {
+      var N = REPS, i, a = 'foo';
+      for (i = 0; i < N; ++i) {
+        if (a === undefined)
+          continue;
+      }
+      print_result('<code>if (a === undefined) ...</code>', N, Stopwatch.elapsed());
+    });
+  }
+
+
+  function go_a_not() {
+    return run(function () {
+      var N = REPS, i, a = 'foo';
+      for (i = 0; i < N; ++i) {
+        if (!a)
+          continue;
+      }
+      print_result('<code>if (!a) ...</code>', N, Stopwatch.elapsed());
+    });
+  }
+
+
   function go_random() {
     return run(function () {
       var N = REPS / 10, i, v = [];
@@ -178,7 +214,7 @@
       for (i = 0; i < N; ++i) {
         v = new Array(2);
       }
-      print_result('<code>new Array(2)</code>', N, Stopwatch.elapsed());
+      print_result('2D array with <code>new Array(2)</code>', N, Stopwatch.elapsed());
       v = undefined;
     });
   }
@@ -190,7 +226,7 @@
       for (i = 0; i < N; ++i) {
         v = [0, 0];
       }
-      print_result('<code>[0, 0]</code>', N, Stopwatch.elapsed());
+      print_result('2D array with <code>[0, 0]</code>', N, Stopwatch.elapsed());
       v = undefined;
     });
   }
@@ -202,7 +238,7 @@
       for (i = 0; i < N; ++i) {
         v = { x: 0, y: 0 };
       }
-      print_result('<code>{x:0, y:0}</code>', N, Stopwatch.elapsed());
+      print_result('2D array with <code>{x:0, y:0}</code>', N, Stopwatch.elapsed());
       v = undefined;
     });
   }
@@ -214,7 +250,7 @@
       for (i = 0; i < N; ++i) {
         v = new Float32Array(2);
       }
-      print_result('<code>new Float32Array(2)</code>', N, Stopwatch.elapsed());
+      print_result('2D array with <code>new Float32Array(2)</code>', N, Stopwatch.elapsed());
       v = undefined;
     });
   }
@@ -226,7 +262,7 @@
       for (i = 0; i < N; ++i) {
         v = new Float64Array(2);
       }
-      print_result('<code>new Float64Array(2)</code>', N, Stopwatch.elapsed());
+      print_result('2D array with <code>new Float64Array(2)</code>', N, Stopwatch.elapsed());
       v = undefined;
     });
   }
@@ -395,10 +431,10 @@
 
 
   function makeOutputTable(heading) {
-    out = $('<table class="output" style="width: ' + Math.floor($(window).width() / NUM_RUNS - 16) + 'px"></table>')
+    out = $('<table class="output" style="width: ' + Math.floor($(window).width() / NUM_RUNS - 32) + 'px"></table>')
       .appendTo($('body'))
       .append($('<tr><th colspan="2">' + heading + '</th></tr>'))
-      .append('<tr><td>Funktion</td><td class="result">ms<sup>&minus;1</sup></td></tr>');
+      .append('<tr><td>Funktion</td><td class="result">1K&nbsp;calls/s<sup></sup></td></tr>');
   }
 
 
@@ -423,6 +459,9 @@
       .then(go_while)
       .then(go_cmp_value)
       .then(go_cmp_variable)
+      .then(go_a_typeof)
+      .then(go_a_undefined)
+      .then(go_a_not)
       .then(go_random)
       .then(go_mt)
       .then(go_lcg_rng)
