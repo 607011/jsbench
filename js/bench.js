@@ -42,7 +42,7 @@
       results[s] = 0;
     var rate = 1e-3 * n / ms;
     results[s] += rate;
-    out.append('<p>' + s + ': ' + rate.toFixed(1) + ' ms<sup>&minus;1</sup></p>');
+    out.append('<p>' + s + ': <span class="result">' + rate.toFixed(1) + '</span> ms<sup>&minus;1</sup></p>');
   }
 
 
@@ -416,7 +416,7 @@
       out = $('body');
       out.append('<h2>Mittelwerte der Messungen</h2>');
       $.each(results, function (s, v) {
-        out.append('<p>' + s + ': ø ' + (v / NUM_RUNS).toFixed(1) + '&nbsp;ms<sup>&minus;1</sup></p>');
+        out.append('<p>' + s + ': ø <span class="result">' + (v / NUM_RUNS).toFixed(1) + '</span>&nbsp;ms<sup>&minus;1</sup></p>');
       });
     }
   }
@@ -424,7 +424,7 @@
 
   function benchmark() {
     run(function () {
-      out = $('<span class="output" style="width: ' + (100 / NUM_RUNS) + '%" id="run-' + nRun + '"></span>');
+      out = $('<span></span>').addClass('output');
       $('body').append(out.append($('<h2>Messlauf #' + (nRun + 1) + '</h2>')));
     })
       .then(go_for)
