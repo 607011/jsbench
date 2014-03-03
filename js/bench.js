@@ -65,7 +65,7 @@
       for (i = 0; i < N; ++i) {
         sum += i;
       }
-      print_result('<code>for (&hellip;)</code>', N, Clock.ms());
+      print_result('<code>for (...)</code>', N, Clock.ms());
     });
   }
 
@@ -90,7 +90,7 @@
         else if (i > 50000000)
           continue;
       }
-      print_result('<code>if (i < 50000000) &hellip;</code>', N, Clock.ms());
+      print_result('<code>if (i < 50000000) ...</code>', N, Clock.ms());
     });
   }
 
@@ -104,7 +104,7 @@
         else if (i > C)
           continue;
       }
-      print_result('<code>if (i < C) &hellip;</code>', N, Clock.ms());
+      print_result('<code>if (i < C) ...</code>', N, Clock.ms());
     });
   }
 
@@ -305,6 +305,82 @@
   }
 
 
+  function go_write_to_array() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = [0, 0];
+      for (i = 0; i < N; ++i) {
+        sum += i;
+        obj[0] = i;
+        obj[1] = sum;
+      }
+      print_result('write to <code>[0, 0]</code>', N, Clock.ms());
+    });
+  }
+
+
+  function go_write_to_obj() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = {x:0, y:0};
+      for (i = 0; i < N; ++i) {
+        sum += i;
+        obj.x = i;
+        obj.y = sum;
+      }
+      print_result('write to <code>{x:0, y:0}</code>', N, Clock.ms());
+    });
+  }
+
+
+  function go_write_to_float32array() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = new Float32Array(2);
+      for (i = 0; i < N; ++i) {
+        sum += i;
+        obj[0] = i;
+        obj[1] = sum;
+      }
+      print_result('write to <code>Float32Array(2)</code>', N, Clock.ms());
+    });
+  }
+
+
+  function go_read_from_array() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = [1, 2];
+      for (i = 0; i < N; ++i) {
+        sum += obj[0] + obj[1];
+      }
+      print_result('read from <code>[0, 0]</code>', N, Clock.ms());
+    });
+  }
+
+
+  function go_read_from_obj() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = { x: 1, y: 2 };
+      for (i = 0; i < N; ++i) {
+        sum += obj.x + obj.y;
+      }
+      print_result('read from <code>{x:0, y:0}</code>', N, Clock.ms());
+    });
+  }
+
+
+  function go_read_from_float32array() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = new Float32Array(2);
+      obj[0] = 1;
+      obj[1] = 2;
+      for (i = 0; i < N; ++i) {
+        sum += obj[0] + obj[1];
+      }
+      print_result('read from <code>Float32Array(2)</code>', N, Clock.ms());
+    });
+  }
+
+
+
+
   var NUM_RUNS = 5;
   var nRun = 0;
 
@@ -325,7 +401,7 @@
   function benchmark() {
     run(function () {
       out = $('<span class="output" style="width: ' + (100 / NUM_RUNS) + '%" id="run-' + nRun + '"></span>');
-      $('body').append(out.append($('<h2>Messlauf #' + (nRun+1) + '</h2>')));
+      $('body').append(out.append($('<h2>Messlauf #' + (nRun + 1) + '</h2>')));
     })
       .then(go_for)
       .then(go_while)
@@ -347,6 +423,12 @@
       .then(go_new_object)
       .then(go_new_float32array)
       .then(go_new_float64array)
+      .then(go_read_from_array)
+      .then(go_read_from_obj)
+      .then(go_read_from_float32array)
+      .then(go_write_to_array)
+      .then(go_write_to_obj)
+      .then(go_write_to_float32array)
       .then(ready);
   }
 
