@@ -451,11 +451,5 @@
   }
 
 
-  function init() {
-    $('body').append('<h1>JS Benchmark</h1>');
-    benchmark();
-  }
-
-
-  $(document).ready(init);
+  $(document).ready(benchmark);
 })();
