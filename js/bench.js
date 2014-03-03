@@ -305,6 +305,19 @@
   }
 
 
+  function go_write_to_xy() {
+    return run(function () {
+      var N = REPS, i, sum = 0, x = 0, y = 0;
+      for (i = 0; i < N; ++i) {
+        sum += i;
+        x = i;
+        y = sum;
+      }
+      print_result('write to <code>x</code>, <code>y</code>', N, Clock.ms());
+    });
+  }
+
+
   function go_write_to_array() {
     return run(function () {
       var N = REPS, i, sum = 0, obj = [0, 0];
@@ -340,6 +353,17 @@
         obj[1] = sum;
       }
       print_result('write to <code>Float32Array(2)</code>', N, Clock.ms());
+    });
+  }
+
+
+  function go_read_from_xy() {
+    return run(function () {
+      var N = REPS, i, sum = 0, x = 1, y = 2;
+      for (i = 0; i < N; ++i) {
+        sum += x + y;
+      }
+      print_result('read from <code>x</code>, <code>y</code>', N, Clock.ms());
     });
   }
 
@@ -423,9 +447,11 @@
       .then(go_new_object)
       .then(go_new_float32array)
       .then(go_new_float64array)
+      .then(go_read_from_xy)
       .then(go_read_from_array)
       .then(go_read_from_obj)
       .then(go_read_from_float32array)
+      .then(go_write_to_xy)
       .then(go_write_to_array)
       .then(go_write_to_obj)
       .then(go_write_to_float32array)
