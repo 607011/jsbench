@@ -1,6 +1,12 @@
 // Copyright (c) 2014 Oliver Lau, Heise Zeitschriften Verlag, www.ct.de
 // All rights reserved.
 
+var Point = function (x, y) {
+  this.x = x;
+  this.y = y;
+};
+
+
 (function () {
   "use strict";
 
@@ -247,6 +253,18 @@
   }
 
 
+  function go_new_point() {
+    return run(function () {
+      var N = REPS, i, v;
+      for (i = 0; i < N; ++i) {
+        v = new Point(0, 0);
+      }
+      print_result('2D array with <code>new Point(0, 0)</code>', N, Stopwatch.elapsed());
+      v = undefined;
+    });
+  }
+
+
   function go_new_float32array() {
     return run(function () {
       var N = REPS / 10, i, v;
@@ -374,6 +392,19 @@
   }
 
 
+  function go_write_to_point() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = new Point(0, 0);
+      for (i = 0; i < N; ++i) {
+        sum += i;
+        obj.x = i;
+        obj.y = sum;
+      }
+      print_result('write to <code>new Point()</code>', N, Stopwatch.elapsed());
+    });
+  }
+
+
   function go_write_to_float32array() {
     return run(function () {
       var N = REPS, i, sum = 0, obj = new Float32Array(2);
@@ -416,6 +447,17 @@
         sum += obj.x + obj.y;
       }
       print_result('read from <code>{x:0, y:0}</code>', N, Stopwatch.elapsed());
+    });
+  }
+
+
+  function go_read_from_point() {
+    return run(function () {
+      var N = REPS, i, sum = 0, obj = new Point(1, 2);
+      for (i = 0; i < N; ++i) {
+        sum += obj.x + obj.y;
+      }
+      print_result('read from <code>Point(0, 0)</code>', N, Stopwatch.elapsed());
     });
   }
 
@@ -479,16 +521,19 @@
       .then(go_new_array1)
       .then(go_new_array2)
       .then(go_new_object)
+      .then(go_new_point)
       .then(go_new_float32array)
       .then(go_new_float64array)
-      .then(go_read_from_xy)
-      .then(go_read_from_array)
-      .then(go_read_from_obj)
-      .then(go_read_from_float32array)
       .then(go_write_to_xy)
       .then(go_write_to_array)
       .then(go_write_to_obj)
+      .then(go_write_to_point)
       .then(go_write_to_float32array)
+      .then(go_read_from_xy)
+      .then(go_read_from_array)
+      .then(go_read_from_obj)
+      .then(go_read_from_point)
+      .then(go_read_from_float32array)
       .then(ready);
   }
 
