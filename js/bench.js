@@ -475,7 +475,7 @@ var Point = function (x, y) {
   }
 
 
-  function makeOutputTable(heading) {
+  function createOutputTable(heading) {
     out = $('<table class="output" style="width: ' + Math.floor($(window).width() / NUM_RUNS - 32) + 'px"></table>')
       .append($('<tr><th colspan="2">' + heading + '</th></tr>'))
       .append('<tr><td>Funktion</td><td class="result">1K&nbsp;calls/s<sup></sup></td></tr>')
@@ -488,7 +488,7 @@ var Point = function (x, y) {
       run(benchmark, 1000);
     }
     else {
-      makeOutputTable('Mittelwerte der Messungen');
+      createOutputTable('Mittelwerte der Messungen');
       $.each(results, function (s, v) {
         out.append('<tr><td class="name">' + s + '</td><td class="result"><span class="result">' + (v / NUM_RUNS).toFixed(1) + '</span></td></tr>');
       });
@@ -498,7 +498,7 @@ var Point = function (x, y) {
 
   function benchmark() {
     run(function () {
-      makeOutputTable(nRun === 0 ? 'Warm-up' : 'Messlauf #' + nRun);
+      createOutputTable(nRun === 0 ? 'Warm-up' : 'Messlauf #' + nRun);
     })
       .then(go_for)
       .then(go_while)
